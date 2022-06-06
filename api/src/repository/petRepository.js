@@ -1,15 +1,15 @@
 import { con } from "./connection"
 
-export function consulta(nome){
+export function consulta(id){
     const comando = 
         `id_pet     int,
         INSERT INTO   ?`
 
     const [linhas] = await con.query(comando, [`%$(nome)$%`]);
-    return linhas [0]
+    return linhas [0];
 }
 
-export function cadastro(id){
+export function cadastro(pet){
     const comando = 
         `id_pet          int,
         nm_pet           ?,
