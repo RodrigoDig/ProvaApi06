@@ -1,21 +1,22 @@
-import { con } from "./connection"
+import { con } from './connection.js'
 
-export function consulta(id){
-    const comando = 
-        `id_pet     int,
-        INSERT INTO   ?`
+export async function inserirPet(pet) {
+    const comando =
+        
+        `insert into TB_PET (nm_pet)
+         values             (?)`
 
-    const [linhas] = await con.query(comando, [`%$(nome)$%`]);
-    return linhas [0];
+        
+    const resposta = await con.query(comando, [pet.nome])
+    return resposta[0]
 }
 
-export function cadastro(pet){
+export async function consultarPet(pet) {
     const comando = 
-        `id_pet          int,
-        nm_pet           ?,
-        dt_pet           ?,
-        ds_pet           ? `
-    const [resposta] = await con.query(comando, [pet.nome, pet.data, pet.descricao]);
-    pet.id = resposta.insertId;
-    return pet.id;
+        `select 
+            id_pet            id,
+            nm_pet            nome
+        from tb_pet`
+    const resposta = await con.query(comando)
+    return resposta [0]
 }
